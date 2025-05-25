@@ -165,7 +165,6 @@ create_plot = function(K,seed,xi,p.a,p.b,c1,c2){
 # create_plot(K=10,seed = 1, xi, p.a, p.b, c1=20, c2) 
 
 
-plot.shiny <- function(){
  
     ui <- dashboardPage(
       dashboardHeader(),
@@ -197,5 +196,3 @@ plot.shiny <- function(){
     }
     shinyApp(ui = ui, server = server, options = list(launch.browser = TRUE))
  
-}
-plot.shiny()
