@@ -166,33 +166,33 @@ create_plot = function(K,seed,xi,p.a,p.b,c1,c2){
 
 
  
-    ui <- dashboardPage(
-      dashboardHeader(),
-      dashboardSidebar( sliderInput("sliderxi",withMathJax("$$\\xi$$"), 
-                                    min=0.025, max=1, step=0.025, value=0.1),
-                        sliderInput("sliderK",withMathJax("$$K$$"), 
-                                    min=5, max=50, step=1, value=5),
-                        sliderInput("sliderseed",withMathJax("seed"), 
-                                    min=1, max=5, step=1, value=1),
-                        sliderInput("sliderp_a",withMathJax("$$p_a$$"), 
-                                    min=0.05, max=0.75, step=0.05, value=0.25),
-                        sliderInput("sliderp_b",withMathJax("$$p_b$$"), 
-                                    min=0.75, max=0.95, step=0.05, value=0.8),
-                        sliderInput("sliderc_1",withMathJax("$$c_1$$"), 
-                                    min=5, max=100, step=5, value=5),
-                        sliderInput("sliderc_2",withMathJax("$$c_2$$"), 
-                                    min=5, max=100, step=5, value=5)
-                        ),
-      dashboardBody(
-        fluidRow(column(6,plotOutput('plot')))
-      ))
-    
-    server <- function(input, output, session) { 
-      output$plot <- renderPlot({
-        create_plot(K=input$sliderK,seed = input$sliderseed, 
-                    xi = input$sliderxi, p.a = input$sliderp_a, p.b=input$sliderp_b, 
-                    c1=input$sliderc_1, c2 = input$sliderc_2) 
-    })
-    }
-    shinyApp(ui = ui, server = server, options = list(launch.browser = TRUE))
- 
+ui <- dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar( sliderInput("sliderxi",withMathJax("$$\\xi$$"), 
+                                min=0.025, max=1, step=0.025, value=0.1),
+                    sliderInput("sliderK",withMathJax("$$K$$"), 
+                                min=5, max=50, step=1, value=5),
+                    sliderInput("sliderseed",withMathJax("seed"), 
+                                min=1, max=5, step=1, value=1),
+                    sliderInput("sliderp_a",withMathJax("$$p_a$$"), 
+                                min=0.05, max=0.75, step=0.05, value=0.25),
+                    sliderInput("sliderp_b",withMathJax("$$p_b$$"), 
+                                min=0.75, max=0.95, step=0.05, value=0.8),
+                    sliderInput("sliderc_1",withMathJax("$$c_1$$"), 
+                                min=5, max=100, step=5, value=5),
+                    sliderInput("sliderc_2",withMathJax("$$c_2$$"), 
+                                min=5, max=100, step=5, value=5)
+                    ),
+  dashboardBody(
+    fluidRow(column(12,plotOutput('plot')))
+  ))
+
+server <- function(input, output, session) { 
+  output$plot <- renderPlot({
+    create_plot(K=input$sliderK,seed = input$sliderseed, 
+                xi = input$sliderxi, p.a = input$sliderp_a, p.b=input$sliderp_b, 
+                c1=input$sliderc_1, c2 = input$sliderc_2) 
+})
+}
+shinyApp(ui = ui, server = server, options = list(launch.browser = TRUE))
+
