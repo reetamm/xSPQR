@@ -100,7 +100,7 @@ create_plot = function(K,seed,xi,p.a,p.b,c1,c2){
     
     F.blend(x,F.SPQR(x),F.GPD(x,u=u,scale=sig,shape=xi),weight(x,a,b,c1,c2))
   })
-  par(mfrow=c(1,2))
+  par(mfrow=c(2,1))
   
   
   f.blend=function(y,F.B,F.S,f.S,F.G,f.G,p,p.prime){
@@ -179,12 +179,12 @@ ui <- dashboardPage(
                     sliderInput("sliderp_b",withMathJax("$$p_b$$"), 
                                 min=0.75, max=0.95, step=0.05, value=0.8),
                     sliderInput("sliderc_1",withMathJax("$$c_1$$"), 
-                                min=5, max=100, step=5, value=5),
+                                min=5, max=100, step=5, value=25),
                     sliderInput("sliderc_2",withMathJax("$$c_2$$"), 
                                 min=5, max=100, step=5, value=5)
                     ),
   dashboardBody(
-    fluidRow(column(12,plotOutput('plot')))
+    fluidRow(column(8,plotOutput('plot')))
   ))
 
 server <- function(input, output, session) { 
