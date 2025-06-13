@@ -59,7 +59,8 @@ create_plot = function(K,seed,xi,p.a,p.b,c1,c2){
     evd::pgpd(y,u,scale,shape)
   }
   f.GPD=function(y,u=0,scale=1,shape=0.1){
-    try(out<-(1/scale)*(1+shape*(y-u)/scale)^(-1/shape-1), silent=T)
+    if(shape !=0) try(out<-(1/scale)*(1+shape*(y-u)/scale)^(-1/shape-1), silent=T)
+    if(shape ==0) try(out<-(1/scale)*exp(-(y-u)/scale), silent=T)
     out[1+shape*(y-u)/scale<=0]=0
     out
   }
@@ -83,10 +84,11 @@ create_plot = function(K,seed,xi,p.a,p.b,c1,c2){
   b
   
   sigma.val=function(a,b,p.a,p.b,xi){
-    xi*(a-b)/(((1-p.a)^(-xi))-((1-p.b)^(-xi)))
-  }
+    if(xi !=0) xi*(a-b)/(((1-p.a)^(-xi))-((1-p.b)^(-xi))) else (a-b)/(log(1-p.b)-log(1-p.a))
+  
+    }
   u.val=function(a,p.a,sigma,xi){
-    a-sigma/xi*((1-p.a)^(-xi)-1)
+    if(xi!=0) a-sigma/xi*((1-p.a)^(-xi)-1) else a- sigma*(-log(1-p.a))
   }
   
   
@@ -175,9 +177,9 @@ ui <- dashboardPage(
                     sliderInput("sliderseed",withMathJax("seed"), 
                                 min=1, max=5, step=1, value=1),
                     sliderInput("sliderp_a",withMathJax("$$p_a$$"), 
-                                min=0.05, max=0.75, step=0.05, value=0.25),
+                                min=0.05, max=0.75, step=0.05, value=0.6),
                     sliderInput("sliderp_b",withMathJax("$$p_b$$"), 
-                                min=0.75, max=0.95, step=0.05, value=0.8),
+                                min=0.75, max=0.95, step=0.05, value=0.95),
                     sliderInput("sliderc_1",withMathJax("$$c_1$$"), 
                                 min=5, max=100, step=5, value=25),
                     sliderInput("sliderc_2",withMathJax("$$c_2$$"), 
