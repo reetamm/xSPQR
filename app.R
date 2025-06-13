@@ -169,7 +169,7 @@ create_plot = function(K,seed,xi,p.a,p.b,c1,c2){
 ui <- dashboardPage(
   dashboardHeader(),
   dashboardSidebar( sliderInput("sliderxi",withMathJax("$$\\xi$$"), 
-                                min=0.025, max=1, step=0.025, value=0.1),
+                                min=-1, max=1, step=0.025, value=0.1),
                     sliderInput("sliderK",withMathJax("$$K$$"), 
                                 min=5, max=50, step=1, value=5),
                     sliderInput("sliderseed",withMathJax("seed"), 
